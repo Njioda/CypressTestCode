@@ -4,9 +4,7 @@ pipeline {
     nodejs "24.3.0"  // matches the name configured in Jenkin
   }
 
-    environment {
-        CYPRESS_CACHE_FOLDER = "${WORKSPACE}/.cache/Cypress"
-    }
+   
 
     stages {
         stage('Checkout Code') {
