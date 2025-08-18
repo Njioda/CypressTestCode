@@ -18,15 +18,10 @@ pipeline {
       }
   
   }
-     stage('Deploy') {
-          steps {
-              echo 'Deploying....'
-          }
-      }
   post {
         always {
              archiveArtifacts artifacts: 'cypress/videos/**'
-             archiveArtifacts artifacts: 'cypress/reports/**'
+             archiveArtifacts artifacts: 'cypress/reports/**/*.html'
         }
     }
 }
