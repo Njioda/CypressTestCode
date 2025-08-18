@@ -1,35 +1,28 @@
 pipeline {
-    agent any
+  agent any
 
-    stages {
-        stage('Install') {
-            steps {
-                bat 'npm ci'
-            }
-        }
+  tools {
+    nodejs "24.3.0"  // matches the name configured in Jenkin
+  }
 
-        stage('Run Cypress Tests') {
-            steps {
-                bat 'npx cypress run'
-            }
-        }
-
-        stage('Generate Report') {
-            steps {
-                bat 'npm run posttest'
-            }
-        }
-
-        stage('Archive Artifacts') {
-            steps {
-                archiveArtifacts artifacts: 'cypress/reports/**/*.*', allowEmptyArchive: true
-            }
-        }
-    }
-
-    post {
+ stages {
+      stage('Install Dependencies') {
+          steps {
+              bat 'npm ci'
+          }
+      }
+      stage('Run Cypress Tests') {
+          steps {
+              bat 'npx cypress run'
+          }
+      }
+  
+  }
+  post {
         always {
-            //junit 'cypress/reports/**/*.xml' // if using JUnit XML
+             archiveArtifacts artifacts: 'cypress/videos/**'
+             archiveArtifacts artifacts: 'cypress/reports/**/*.html'
         }
     }
 }
+
