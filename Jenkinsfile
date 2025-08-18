@@ -1,28 +1,32 @@
 pipeline {
   agent any
-
-  tools {
-    nodejs "24.3.0"  // matches the name configured in Jenkin
-  }
-
- stages {
-      stage('Install Dependencies') {
-          steps {
-              bat 'npm ci'
-          }
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Building...'
+        // Add your build steps here
       }
-      stage('Run Cypress Tests') {
-          steps {
-              bat 'npx cypress run'
-          }
+    }
+    stage('Test') {
+      steps {
+        echo 'Running Cypress tests...'
+        bat 'cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports,reportFilename=report'
+        // Or, if you're using a specific command:
+        // sh 'npm run cypress:run'
       }
-  
+    }
   }
   post {
-        always {
-             archiveArtifacts artifacts: 'cypress/videos/**'
-             archiveArtifacts artifacts: 'cypress/reports/**/*.html'
-        }
+    always {
+      archiveArtifacts artifacts: 'cypress/reports/*', fingerprint: true
+      publishHTML([
+        target: [
+          reportName: 'Cypress Report',
+          reportDir: 'cypress/reports',
+          reportFiles: 'report.html',
+          reportTitle: 'Cypress Test Report'
+        ]
+      ])
     }
+  }
 }
-
