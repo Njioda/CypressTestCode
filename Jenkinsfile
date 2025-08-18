@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/your-org/your-repo.git'
+                git 'https://github.com/Njioda/CypressTestCode.git'
             }
         }
 
