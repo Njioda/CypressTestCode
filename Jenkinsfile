@@ -1,32 +1,35 @@
 pipeline {
-  agent any
-  stages {
-    stage('Build') {
-      steps {
-        echo 'Building...'
-        // Add your build steps here
-      }
+    agent any
+
+    stages {
+        stage('Install') {
+            steps {
+                bat 'npm ci'
+            }
+        }
+
+        stage('Run Cypress Tests') {
+            steps {
+                bat 'npx cypress run'
+            }
+        }
+
+        stage('Generate Report') {
+            steps {
+                bat 'npm run posttest'
+            }
+        }
+
+        stage('Archive Artifacts') {
+            steps {
+                archiveArtifacts artifacts: 'cypress/reports/**/*.*', allowEmptyArchive: true
+            }
+        }
     }
-    stage('Test') {
-      steps {
-        echo 'Running Cypress tests...'
-        bat 'cypress run --reporter mochawesome --reporter-options reportDir=cypress/reports,reportFilename=report'
-        // Or, if you're using a specific command:
-        // sh 'npm run cypress:run'
-      }
+
+    post {
+        always {
+            //junit 'cypress/reports/**/*.xml' // if using JUnit XML
+        }
     }
-  }
-  post {
-    always {
-      archiveArtifacts artifacts: 'cypress/reports/*', fingerprint: true
-      publishHTML([
-        target: [
-          reportName: 'Cypress Report',
-          reportDir: 'cypress/reports',
-          reportFiles: 'report.html',
-          reportTitle: 'Cypress Test Report'
-        ]
-      ])
-    }
-  }
 }
