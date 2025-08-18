@@ -31,11 +31,7 @@ pipeline {
             }
         }
 
-        stage('Publish Test Results') {
-            steps {
-                junit 'cypress/reports/**/*.xml' // if you generate JUnit reports
-            }
-        }
+        
     }
 
     post {
