@@ -21,7 +21,7 @@ pipeline {
   post {
         always {
              archiveArtifacts artifacts: 'cypress/videos/*'
-             archiveArtifacts artifacts: 'cypress/reports/*', fingerprint: true
+             //archiveArtifacts artifacts: 'cypress/reports/*', fingerprint: true
         }
     }
 }
