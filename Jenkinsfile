@@ -41,7 +41,7 @@ pipeline {
 
     post {
         always {
-            echo 'Pipeline finished.'
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, icon: '', keepAll: true, reportDir: 'cypress/reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
         }
     }
 }
