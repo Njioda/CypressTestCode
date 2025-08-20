@@ -19,7 +19,7 @@ pipeline {
         }
 
         
-        stage('Checkout Code') {
+        stage('bulding') {
              echo 'Building the appication.'
             }
 
