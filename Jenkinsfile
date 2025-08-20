@@ -20,8 +20,10 @@ pipeline {
 
         
         stage('bulding') {
-             echo 'Building the appication.'
+            steps{
+                echo 'Building the appication.'             
             }
+        }
 
         stage('Run Cypress Tests') {
             steps {
