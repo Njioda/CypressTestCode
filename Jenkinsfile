@@ -10,7 +10,7 @@ pipeline {
                 git 'https://github.com/Njioda/CypressTestCode.git'
             }
         }
-        stage('Bulding') {
+        stage('Checkout Code') {
              echo 'Building the appication.'
             }
 
