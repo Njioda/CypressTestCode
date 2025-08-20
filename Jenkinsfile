@@ -2,9 +2,7 @@ pipeline {
     agent any
     tools {
     nodejs "24.3.0"  // matches the name configured in Jenkin
-  }
-
-   
+  } 
 
     stages {
         stage('Checkout Code') {
@@ -12,6 +10,9 @@ pipeline {
                 git 'https://github.com/Njioda/CypressTestCode.git'
             }
         }
+        stage('Bulding') {
+             echo 'Building the appication.'
+            }
 
         stage('Install Dependencies') {
             steps {
@@ -30,8 +31,7 @@ pipeline {
                 archiveArtifacts artifacts: 'cypress/videos/**, cypress/screenshots/**', allowEmptyArchive: true
             }
         }
-
-        
+   
     }
 
     post {
