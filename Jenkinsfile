@@ -10,9 +10,7 @@ pipeline {
                 git 'https://github.com/Njioda/CypressTestCode.git'
             }
         }
-        stage('Checkout Code') {
-             echo 'Building the appication.'
-            }
+        
 
         stage('Install Dependencies') {
             steps {
