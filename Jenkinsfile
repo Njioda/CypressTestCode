@@ -18,6 +18,11 @@ pipeline {
             }
         }
 
+        
+        stage('Checkout Code') {
+             echo 'Building the appication.'
+            }
+
         stage('Run Cypress Tests') {
             steps {
                 bat 'npx cypress run'
